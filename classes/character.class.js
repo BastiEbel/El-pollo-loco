@@ -1,5 +1,5 @@
 class Character extends MovableObject {
-    speed = 5;
+    speed = 7;
     IMAGES_WALKING = [
         'img/2.Secuencias_Personaje-Pepe-corrección/2.Secuencia_caminata/W-21.png',
         'img/2.Secuencias_Personaje-Pepe-corrección/2.Secuencia_caminata/W-22.png',
@@ -21,17 +21,17 @@ class Character extends MovableObject {
 
     animate() {
         setInterval(() => {
-            if (this.world.keyboard.RIGHT) {
+            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end) {
                 this.x += this.speed;
                 this.otherDirection = false;
             }
 
-            if (this.world.keyboard.LEFT) {
+            if (this.world.keyboard.LEFT && this.x > 0) {
                 this.x -= this.speed;
                 this.otherDirection = true;
             }
 
-            this.world.camera_x = -this.x;
+            this.world.camera_x = -this.x + 100;
         }, 1000 / 60);
 
         setInterval(() => {
