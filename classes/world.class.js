@@ -2,22 +2,11 @@ class World {
 
     character = new Character();
 
-    enemies = [
-        new Chicken(),
-        new Chicken(),
-        new Chicken()
-    ];
+    enemies = level1.enemies;
 
-    cloud = [
-        new Cloud()
-    ];
+    clouds = level1.clouds;
 
-    backgroundObjects = [
-        new BackgroundObject('img/5.Fondo/Capas/5.cielo_1920-1080px.png', 0),
-        new BackgroundObject('img/5.Fondo/Capas/3.Fondo3/1.png', 0),
-        new BackgroundObject('img/5.Fondo/Capas/2.Fondo2/1.png', 0),
-        new BackgroundObject('img/5.Fondo/Capas/1.suelo-fondo1/1.png', 0)
-    ];
+    backgroundObjects = level1.backgroundObjects;
 
     canvas;
     ctx;
@@ -45,7 +34,7 @@ class World {
 
         this.addtoMap(this.character);
 
-        this.addObjectsToMap(this.cloud);
+        this.addObjectsToMap(this.clouds);
 
         this.addObjectsToMap(this.enemies);
 
