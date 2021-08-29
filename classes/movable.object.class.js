@@ -9,6 +9,7 @@ class MovableObject {
     otherDirection = false;
     speedY = 0;
     acceleration = 2.5;
+    energy = 100;
 
     imageCache = [];
 
@@ -39,6 +40,26 @@ class MovableObject {
 
     }
 
+    draw(ctx) {
+        ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+    }
+
+    drawFrame(ctx) {
+        if (this instanceof Character || this instanceof Chicken) {
+            ctx.lineWidth = '5';
+            ctx.strokeStyle = 'blue';
+            ctx.rect(this.x, this.y, this.width, this.height);
+            ctx.stroke();
+        }
+    }
+
+    isColliding(move){
+        return this.x + this.width > move.x &&
+        this.y + this.height > move.y &&
+        this.x < move.x &&
+        this.y < move.y + move.height;
+    }
+
     playAnimation(images) {
         let i = this.currentimage % this.IMAGES_WALKING.length;
         let path = images[i];
@@ -50,7 +71,7 @@ class MovableObject {
         this.x += this.speed;
 
     }
-    
+
     moveLeft() {
         this.x -= this.speed;
     }
