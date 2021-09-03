@@ -84,6 +84,7 @@ class Character extends MovableObject {
         setInterval(() => {
             if(this.isDead()){
                 this.playAnimation(this.IMAGES_DEAD);
+                this.loadImage('img/2.Secuencias_Personaje-Pepe-corrección/5.Muerte/D-57.png');
             } else if(this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
             }else if (this.isAboveGround()) {

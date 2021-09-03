@@ -1,10 +1,5 @@
-class MovableObject {
-    x = 120;
-    y = 138;
-    img;
-    height = 300;
-    width = 100;
-    currentimage = 0;
+class MovableObject extends drawableObject {
+    
     speed = 0.2;
     otherDirection = false;
     speedY = 0;
@@ -12,7 +7,6 @@ class MovableObject {
     energy = 100;
     lastHit = 0;
 
-    imageCache = [];
 
     applyGravatity() {
         setInterval(() => {
@@ -25,33 +19,6 @@ class MovableObject {
 
     isAboveGround() {
         return this.y < 180;
-    }
-
-    loadImage(path) {
-        this.img = new Image();
-        this.img.src = path;
-    }
-
-    loadImages(imgcache) {
-        imgcache.forEach((path) => {
-            let img = new Image();
-            img.src = path;
-            this.imageCache[path] = img;
-        });
-
-    }
-
-    draw(ctx) {
-        ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
-    }
-
-    drawFrame(ctx) {
-        if (this instanceof Character || this instanceof Chicken) {
-            ctx.lineWidth = '5';
-            ctx.strokeStyle = 'blue';
-            ctx.rect(this.x, this.y, this.width, this.height);
-            ctx.stroke();
-        }
     }
 
     isColliding(move) {
