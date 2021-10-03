@@ -43,7 +43,7 @@ class Character extends MovableObject {
 
     world;
     walking_sound = new Audio('audio/walking.mp3');
-    jumping_sound = new Audio('audio/jump.mp3');
+    jump_sound = new Audio('audio/jump.mp3');
 
 
     constructor() {
@@ -59,7 +59,6 @@ class Character extends MovableObject {
     animate() {
         setInterval(() => {
             this.walking_sound.pause();
-            this.jumping_sound.pause();
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end) {
                 this.moveRight();
                 this.walking_sound.play();
@@ -74,23 +73,32 @@ class Character extends MovableObject {
 
             if (this.world.keyboard.UP && !this.isAboveGround()) {
                 this.jump();
-                this.jumping_sound.play();
+                this.jump_sound.play();
             }
 
             if (this.world.keyboard.SPACE && !this.isAboveGround()) {
                 this.jump();
-                this.jumping_sound.play();
+                this.jump_sound.play();
             }
+
+            
 
             this.world.camera_x = -this.x + 100;
         }, 1000 / 60);
 
+        if(this.y == 180){
+            this.loadImage(this.IMAGES_JUMPING[0]);
+        }
+
         setInterval(() => {
             if(this.isDead()){
                 this.playAnimation(this.IMAGES_DEAD);
-                this.loadImage('img/2.Secuencias_Personaje-Pepe-corrección/5.Muerte/D-57.png');
+                this.loadImage(this.IMAGES_DEAD[6]);
             } else if(this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
+                setTimeout(() => {
+                    this.loadImage(this.IMAGES_JUMPING[0])
+                }, 1000)
             }else if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_JUMPING);
             } else {
