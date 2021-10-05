@@ -9,6 +9,7 @@ class World {
     camera_x = 0;
     statusBar = new StatusBar();
     statusBarBottle = new StatusBarBottle();
+    bottleObject = new BottleObjects();
     throwableObjects = [];
 
     constructor(canvas, keyboard) {
@@ -31,7 +32,7 @@ class World {
         }, 200);
     }
 
-    checkColision(){
+    checkColision() {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy)) {
                 this.character.hit();
@@ -41,7 +42,7 @@ class World {
     }
 
     checkThrowObjects() {
-        if(this.keyboard.D) {
+        if (this.keyboard.D) {
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
             this.throwableObjects.push(bottle);
         }
@@ -54,21 +55,23 @@ class World {
 
         this.addObjectsToMap(this.level.backgroundObjects);
 
+        // this.addToMap(this.bottleObject);
+        this.addtoMap(this.character);
+
+        this.addObjectsToMap(this.level.clouds);
         this.ctx.translate(-this.camera_x, 0);
         this.addtoMap(this.statusBar);
+        
         this.addtoMap(this.statusBarBottle);
         this.ctx.translate(this.camera_x, 0);
-
-        this.addtoMap(this.character);
-        this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.throwableObjects);
-
+        this.addtoMap(this.bottleObject);
         this.ctx.translate(-this.camera_x, 0);
 
         // draw immer wieder aufrufen
         let self = this;
-        requestAnimationFrame(function () {
+        requestAnimationFrame(function() {
             self.draw();
         });
     }

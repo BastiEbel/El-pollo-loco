@@ -9,23 +9,23 @@ class ThrowableObject extends MovableObject {
 
     throwing_sound = new Audio('audio/thrown.mp3');
 
-    constructor(x, y){
+    constructor(x, y) {
         super();
         this.loadImages(this.THROW_BOTTLE);
         this.x = x;
         this.y = y;
         this.height = 60;
         this.width = 50;
-        this.throw(100, 150);
+        this.throw(200, 150);
     }
 
-    throw(){
+    throw () {
         this.throwing_sound.play();
         this.speedY = 30;
         this.applyGravatity();
         this.playAnimation(this.THROW_BOTTLE);
         setInterval(() => {
             this.x += 10;
-        }, 25);
+        }, 50);
     }
 }

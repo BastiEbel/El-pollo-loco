@@ -15,7 +15,7 @@ class Chicken extends MovableObject {
         super().loadImage('img/3.Secuencias_Enemy_básico/Versión_Gallinita (estas salen por orden de la gallina gigantona)/1.Ga_paso_derecho.png');
         this.loadImages(this.IMAGES_WALKING);
 
-        this.x = 200 + Math.random() * 500; // zahl immer zwischen 200 und 700
+        this.x = 200 + Math.random() * 1800; // zahl immer zwischen 200 und 700
         this.speed = 0.2 + Math.random() * 0.30;
         this.animate();
     }
