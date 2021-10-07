@@ -1,18 +1,20 @@
 class World {
 
     character = new Character();
-
     level = level1;
     canvas;
     ctx;
     keyboard;
     camera_x = 0;
+    chickenDead = false;
     statusBar = new StatusBar();
     statusBarBottle = new StatusBarBottle();
     countOfBottles = 0;
-    bottlesCount = 5;
+    bottlesCount = 0;
     bottleObject = new BottleObjects();
     throwableObjects = [];
+
+    thrown_Audio = new Audio('audio/thrown.mp3')
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -30,10 +32,11 @@ class World {
 
     run() {
         setInterval(() => {
-            this.checkColision();
+            //this.checkColision();
             this.checkThrowObjects();
             this.collectBottleColision();
-        }, 200);
+            this.colisionWithEnemy();
+        }, 50);
     }
 
     checkColision() {
@@ -43,6 +46,29 @@ class World {
                 this.statusBar.setPercentage(this.character.energy);
             }
         });
+    }
+
+    colisionWithEnemy() {
+        this.level.enemies.forEach((enemy) => {
+            if (this.character.isColliding(enemy)) {
+                if (this.character.isInTheAir()) {
+                    this.removeColisionEnemy(enemy);
+                } else {
+                    this.checkColision();
+                }
+            }
+        });
+    }
+
+    removeColisionEnemy(chicken) {
+        for (let i = 0; i < this.level.enemies.length; i++) {
+            let currentEnemy = this.level.enemies[i];
+            if (currentEnemy == chicken) {
+                this.level.enemies[i].chickenDead = true;
+                this.level.enemies.splice(i, 1);
+                console.log(chicken);
+            }
+        }
     }
 
     collectBottleColision() {

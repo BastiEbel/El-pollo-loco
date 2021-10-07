@@ -86,10 +86,6 @@ class Character extends MovableObject {
             this.world.camera_x = -this.x + 100;
         }, 1000 / 25);
 
-        if (this.y == 180) {
-            this.loadImage(this.IMAGES_JUMPING[0]);
-        }
-
         setInterval(() => {
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);

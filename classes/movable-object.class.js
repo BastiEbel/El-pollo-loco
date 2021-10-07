@@ -2,6 +2,7 @@ class MovableObject extends DrawableObject {
 
     speed = 0.2;
     otherDirection = false;
+    isDied = false;
     speedY = 0;
     acceleration = 2.5;
     energy = 100;
@@ -52,10 +53,20 @@ class MovableObject extends DrawableObject {
     }
 
     playAnimation(images) {
-        let i = this.currentimage % images.length;
-        let path = images[i];
-        this.img = this.imageCache[path];
-        this.currentimage++;
+        if (!this.isDied) {
+            
+            let i = this.currentimage % images.length;
+            let path = images[i];
+            
+            if (path == 'img/2.Secuencias_Personaje-Pepe-corrección/5.Muerte/D-57.png') {
+                this.isDied = true;
+            } else if (path == 'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/4.Muerte/G26.png') {
+                this.isDied = true;
+            }
+
+            this.img = this.imageCache[path];
+            this.currentimage++;
+        }
     }
 
     moveRight() {
@@ -69,5 +80,18 @@ class MovableObject extends DrawableObject {
 
     jump() {
         this.speedY = 30;
+        currentimage = 0;
+    }
+
+    isInTheAir(){
+        return this.jumping() || this.landing();
+    }
+
+    jumping(){
+        return this.speedY > 0 && this.isAboveGround();
+    }
+
+    landing() {
+        return this.speedY < 0 && this.isAboveGround();
     }
 }
