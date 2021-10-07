@@ -9,6 +9,8 @@ class World {
     camera_x = 0;
     statusBar = new StatusBar();
     statusBarBottle = new StatusBarBottle();
+    countOfBottles = 0;
+    bottlesCount = 5;
     bottleObject = new BottleObjects();
     throwableObjects = [];
 
@@ -16,6 +18,7 @@ class World {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
+        this.bottlesCount = this.level.bottleObjects.length;
         this.draw();
         this.setWorld();
         this.run();
@@ -29,6 +32,7 @@ class World {
         setInterval(() => {
             this.checkColision();
             this.checkThrowObjects();
+            this.collectBottleColision();
         }, 200);
     }
 
@@ -41,10 +45,43 @@ class World {
         });
     }
 
+    collectBottleColision() {
+        this.level.bottleObjects.forEach((bottle) => {
+            if (this.character.isColliding(bottle)) {
+                this.checkBottle(bottle);
+                this.updateStatusBarBottle();
+            }
+        })
+    }
+
+    checkBottle(bottle) {
+
+        for (let i = 0; i < this.level.bottleObjects.length; i++) {
+            let currentBottle = this.level.bottleObjects[i];
+
+            if (currentBottle == bottle) {
+                this.level.bottleObjects.splice(i, 1);
+                this.countOfBottles++;
+            }
+        }
+    }
+
+    updateStatusBarBottle() {
+        let percentage = 100 / this.bottlesCount * this.countOfBottles;
+
+        this.statusBarBottle.setCollectedBottle(percentage);
+    }
+
     checkThrowObjects() {
-        if (this.keyboard.D) {
-            let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
-            this.throwableObjects.push(bottle);
+        if (this.character.energy > 0) {
+            if (this.countOfBottles > 0) {
+                if (this.keyboard.D) {
+                    let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
+                    this.throwableObjects.push(bottle);
+                    this.countOfBottles--;
+                    this.updateStatusBarBottle();
+                }
+            }
         }
     }
 
@@ -70,7 +107,7 @@ class World {
 
         // draw immer wieder aufrufen
         let self = this;
-        requestAnimationFrame(function() {
+        requestAnimationFrame(function () {
             self.draw();
         });
     }

@@ -16,6 +16,12 @@ const level1 = new Level(
         new BottleObjects(),
         new BottleObjects(),
         new BottleObjects(),
+        new BottleObjects(),
+        new BottleObjects(),
+        new BottleObjects(),
+        new BottleObjects(),
+        new BottleObjects(),
+        new BottleObjects(),
         new BottleObjects()
     ], [
         new BackgroundObject('img/5.Fondo/Capas/5.cielo_1920-1080px.png', -719),
