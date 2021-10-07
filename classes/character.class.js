@@ -21,8 +21,7 @@ class Character extends MovableObject {
         'img/2.Secuencias_Personaje-Pepe-corrección/3.Secuencia_salto/J-36.png',
         'img/2.Secuencias_Personaje-Pepe-corrección/3.Secuencia_salto/J-37.png',
         'img/2.Secuencias_Personaje-Pepe-corrección/3.Secuencia_salto/J-38.png',
-        'img/2.Secuencias_Personaje-Pepe-corrección/3.Secuencia_salto/J-39.png',
-        'img/2.Secuencias_Personaje-Pepe-corrección/3.Secuencia_salto/J-40.png'
+        'img/2.Secuencias_Personaje-Pepe-corrección/3.Secuencia_salto/J-39.png'
     ];
 
     IMAGES_DEAD = [
@@ -60,25 +59,33 @@ class Character extends MovableObject {
         setInterval(() => {
             this.walking_sound.pause();
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end) {
-                this.moveRight();
-                this.walking_sound.play();
-                this.otherDirection = false;
+                if (this.energy > 0) {
+                    this.moveRight();
+                    this.walking_sound.play();
+                    this.otherDirection = false;
+                }
             }
 
             if (this.world.keyboard.LEFT && this.x > 0) {
-                this.moveLeft();
-                this.walking_sound.play();
-                this.otherDirection = true;
+                if (this.energy > 0) {
+                    this.moveLeft();
+                    this.walking_sound.play();
+                    this.otherDirection = true;
+                }
             }
 
             if (this.world.keyboard.UP && !this.isAboveGround()) {
-                this.jump();
-                this.jump_sound.play();
+                if (this.energy > 0) {
+                    this.jump();
+                    this.jump_sound.play();
+                }
             }
 
             if (this.world.keyboard.SPACE && !this.isAboveGround()) {
-                this.jump();
-                this.jump_sound.play();
+                if (this.energy > 0) {
+                    this.jump();
+                    this.jump_sound.play();
+                }
             }
 
 
@@ -94,6 +101,8 @@ class Character extends MovableObject {
                 this.playAnimation(this.IMAGES_HURT);
             } else if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_JUMPING);
+            } else if (this.landing()) {
+                this.loadImage('img/2.Secuencias_Personaje-Pepe-corrección/3.Secuencia_salto/J-31.png');
             } else {
                 if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
                     //walk animation
