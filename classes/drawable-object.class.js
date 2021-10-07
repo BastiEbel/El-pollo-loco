@@ -1,4 +1,5 @@
 class DrawableObject {
+    
     imageCache = {};
     
     img;
