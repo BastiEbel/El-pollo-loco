@@ -9,6 +9,7 @@ class World {
     chickenDead = false;
     statusBar = new StatusBar();
     statusBarBottle = new StatusBarBottle();
+    statusBarCoin = new StatusBarCoins();
     countOfBottles = 0;
     bottlesCount = 0;
     bottleObject = new BottleObjects();
@@ -128,6 +129,7 @@ class World {
         this.ctx.translate(-this.camera_x, 0);
         this.addtoMap(this.statusBar);
         this.addtoMap(this.statusBarBottle);
+        this.addtoMap(this.statusBarCoin);
         this.ctx.translate(this.camera_x, 0);
 
         this.ctx.translate(-this.camera_x, 0);
