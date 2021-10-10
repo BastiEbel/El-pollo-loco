@@ -52,10 +52,10 @@ class MovableObject extends DrawableObject {
     }
 
     playAnimation(images) {
-            let i = this.currentimage % images.length;
-            let path = images[i];
-            this.img = this.imageCache[path];
-            this.currentimage++;
+        let i = this.currentimage % images.length;
+        let path = images[i];
+        this.img = this.imageCache[path];
+        this.currentimage++;
     }
 
     moveRight() {
@@ -68,14 +68,15 @@ class MovableObject extends DrawableObject {
     }
 
     jump() {
+        this.currentimage = 0;
         this.speedY = 30;
     }
 
-    isInTheAir(){
+    isInTheAir() {
         return this.jumping() || this.landing();
     }
 
-    jumping(){
+    jumping() {
         return this.speedY > 0 && this.isAboveGround();
     }
 

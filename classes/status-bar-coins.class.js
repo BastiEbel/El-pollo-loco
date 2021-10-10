@@ -14,10 +14,10 @@ class StatusBarCoins extends DrawableObject {
     constructor() {
         super();
         this.loadImages(this.COIN_STATUSBAR);
-        this.x = 200;
+        this.x = 220;
         this.y = 0;
         this.height = 50;
-        this.width = 150;
+        this.width = 180;
         this.setCollectedCoin(0);
     }
 

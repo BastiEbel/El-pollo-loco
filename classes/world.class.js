@@ -10,6 +10,9 @@ class World {
     statusBar = new StatusBar();
     statusBarBottle = new StatusBarBottle();
     statusBarCoin = new StatusBarCoins();
+    coins = new Coin();
+    countOfCoin = 0;
+    coinCounter = 0;
     countOfBottles = 0;
     bottlesCount = 0;
     bottleObject = new BottleObjects();
@@ -21,6 +24,7 @@ class World {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
+        this.coinCounter = this.level.coins.length;
         this.bottlesCount = this.level.bottleObjects.length;
         this.draw();
         this.setWorld();
@@ -33,13 +37,21 @@ class World {
 
     run() {
         setInterval(() => {
-            //this.checkColision();
-            this.checkThrowObjects();
+            this.bottleColisionWithEnemy();
             this.collectBottleColision();
+            this.collectCoinColision();
             this.colisionWithEnemy();
-        }, 50);
+        }, 20);
+
+        setInterval(() => {
+            this.checkThrowObjects();
+        }, 300);
     }
 
+    /**
+     * character get damage from the chicken
+     * 
+     */
     checkColision() {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy)) {
@@ -49,6 +61,39 @@ class World {
         });
     }
 
+    /**
+     * Check Coilision with Coin if it true collected
+     * 
+     */
+    collectCoinColision() {
+        this.level.coins.forEach((coinCollect) => {
+            if (this.character.isColliding(coinCollect)) {
+                this.checkCoin(coinCollect);
+                this.updateStatusBarCoin();
+            }
+        });
+    }
+
+    checkCoin(coinCollect) {
+        for (let i = 0; i < this.level.coins.length; i++) {
+            let currentCoin = this.level.coins[i];
+            if (currentCoin == coinCollect) {
+                this.level.coins.splice(i, 1);
+                this.countOfCoin++;
+            }
+        }
+    }
+
+    updateStatusBarCoin() {
+        let percentage = 100 / this.coinCounter * this.countOfCoin;
+
+        this.statusBarCoin.setCollectedCoin(percentage);
+    }
+
+    /**
+     * Chicken get damage and remove after this
+     * 
+     */
     colisionWithEnemy() {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy)) {
@@ -60,32 +105,43 @@ class World {
             }
         });
     }
+    
+    bottleColisionWithEnemy() {
+        this.level.enemies.forEach((enemy) => {
+            if (this.throwableObjects.length > 0) {
+                if (this.throwableObjects[0].isColliding(enemy)) {
+                    this.removeColisionEnemy(enemy);
+                }
+            }
+        });
+    }
 
-    removeColisionEnemy(chicken) {
+    removeColisionEnemy(enemy) {
         for (let i = 0; i < this.level.enemies.length; i++) {
             let currentEnemy = this.level.enemies[i];
-            if (currentEnemy == chicken) {
-                this.level.enemies[i].chickenDead = true;
+            if (currentEnemy == enemy) {
                 this.level.enemies.splice(i, 1);
-                console.log(chicken);
+                console.log(enemy);
             }
         }
     }
 
+    /**
+     * Collect bottles with the character
+     * 
+     */
     collectBottleColision() {
         this.level.bottleObjects.forEach((bottle) => {
             if (this.character.isColliding(bottle)) {
                 this.checkBottle(bottle);
                 this.updateStatusBarBottle();
             }
-        })
+        });
     }
 
     checkBottle(bottle) {
-
         for (let i = 0; i < this.level.bottleObjects.length; i++) {
             let currentBottle = this.level.bottleObjects[i];
-
             if (currentBottle == bottle) {
                 this.level.bottleObjects.splice(i, 1);
                 this.countOfBottles++;
@@ -106,6 +162,7 @@ class World {
                     let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
                     this.throwableObjects.push(bottle);
                     this.countOfBottles--;
+                    console.log(this.countOfBottles);
                     this.updateStatusBarBottle();
                 }
             }
