@@ -7,7 +7,7 @@ class ThrowableObject extends MovableObject {
         'img/6.botella/Rotación/Mesa de trabajo 1 copia 6.png'
     ];
 
-    throwing_sound = new Audio('audio/thrown.mp3');
+    throwing_sound = new Audio('audio/glass.mp3');
 
     constructor(x, y) {
         super();
@@ -25,7 +25,7 @@ class ThrowableObject extends MovableObject {
         this.applyGravatity();
         this.playAnimation(this.THROW_BOTTLE);
         setInterval(() => {
-            this.x += 10;
+            this.x += 13;
         }, 50);
     }
 }
