@@ -14,18 +14,18 @@ class StatusBarEndboss extends MovableObject {
     constructor() {
         super();
         this.loadImages(this.STATUSBAR_IMAGES);
-        this.animate();
         this.x = 2600;
         this.y = 0;
         this.height = 50;
         this.width = 180;
         this.setEndbossLive(100);
+        this.animate();
     }
 
     animate() {
         setInterval(() => {
             this.loadImages(this.STATUSBAR_IMAGES);
-        }, 1000 / 25);
+        }, 1000 / 60);
     }
 
     setEndbossLive(percentage) {
