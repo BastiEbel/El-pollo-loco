@@ -33,12 +33,25 @@
     <title>El Polio Loco</title>
 </head>
 
-<body onload="init()">
+<body>
     <h1>El Polio Loco</h1>
+    <div class="container-start">
+        <canvas class="d-none" id="canvas" width="720px" height="480px"></canvas>
+    
+        <img id="canvasImg" class="img-start" src="img/9.Intro _ Outro Image/Start Screen/Opción 1.png">
+        <div class="menu-container">
+            <span class="game-explain">Move Left <img src="img/icon/left.ico"> </span>
+            <span class="game-explain">Move Right <img src="img/icon/right.ico"> </span>
+            <span class="game-explain">Jump <img src="img/icon/up.ico"> </span>
+            <span class="game-explain">Shoot with Bottle <b>D</b></span>
 
-    <canvas id="canvas" width="720px" height="480px">
-
-    </canvas>
+            <div class="game-explain">
+                <button onclick="startGame()" id="startButton" class="game-button">Start Game</button>
+                <a class="game-button d-none" id="restartButton" href=index.html>Restart Game</a>
+                <img onclick="goFullScreen()" class="img-fullscreen" src="img/icon/fullscreen.ico">
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>

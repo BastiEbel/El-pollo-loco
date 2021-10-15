@@ -7,6 +7,28 @@ function init() {
     world = new World(canvas, keyboard);
 }
 
+function visibleset(){
+    document.getElementById('restartButton').classList.remove('d-none');
+    document.getElementById('startButton').classList.add('d-none');
+    document.getElementById('canvas').classList.remove('d-none');
+    document.getElementById('canvasImg').classList.add('d-none');
+}
+
+function startGame(){
+    visibleset();
+    init();
+}
+
+function goFullScreen(){
+    var canvas = document.getElementById("canvas");
+    if(canvas.requestFullScreen)
+        canvas.requestFullScreen();
+    else if(canvas.webkitRequestFullScreen)
+        canvas.webkitRequestFullScreen();
+    else if(canvas.mozRequestFullScreen)
+        canvas.mozRequestFullScreen();
+}
+
 window.addEventListener("keydown", (e) => {
 
     if (e.keyCode == 37) {

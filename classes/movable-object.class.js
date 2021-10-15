@@ -1,5 +1,6 @@
 class MovableObject extends DrawableObject {
 
+    lastIdle = 0;
     speed = 0.2;
     otherDirection = false;
     speedY = 0;
@@ -82,5 +83,16 @@ class MovableObject extends DrawableObject {
 
     landing() {
         return this.speedY < 0 && this.isAboveGround();
+    }
+
+    isIdle(){
+        this.lastIdle = new Date().getTime();
+    }
+
+    longIdle(){
+        let timepassed = new Date().getTime() - this.lastIdle;
+        timepassed = timepassed / 1000;
+        
+        return timepassed < 5;
     }
 }

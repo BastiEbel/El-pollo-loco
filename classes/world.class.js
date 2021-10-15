@@ -54,7 +54,7 @@ class World {
             this.endbossColision();
         }, 20);
 
-        setInterval(() =>{
+        setInterval(() => {
             this.loadEndscreen();
         }, 300);
 
@@ -63,15 +63,24 @@ class World {
         }, 150);
     }
 
-    loadEndscreen(){
+    /**
+     * Endscreen if the character is dead
+     * Endscreen if the Endboss is dead
+     */
+    loadEndscreen() {
         let characterStatus = this.character.energy;
         let endBossStatus = level1.endboss[0].energy;
-        if(characterStatus == 0){
-            this.endScreen.push(new Endscreen('img/9.Intro _ Outro Image/_Game over_ screen/2.oh no you lost!.png'));
+
+        if (characterStatus == 0) {
             this.lose_sound.play();
-        } else if(endBossStatus == 0){
-            this.endScreen.push(new Endscreen('img/9.Intro _ Outro Image/_Game over_ screen/3.Game over.png'));
+            setTimeout(() => {
+                this.endScreen.push(new Endscreen('img/9.Intro _ Outro Image/_Game over_ screen/2.oh no you lost!.png'));
+            }, 2500);
+        } else if (endBossStatus == 0) {
             this.win_sound.play();
+            setTimeout(() => {
+                this.endScreen.push(new Endscreen('img/9.Intro _ Outro Image/_Game over_ screen/3.Game over.png'));
+            }, 2500); 
         }
     }
 
@@ -85,8 +94,6 @@ class World {
                 this.hurts_sound.play();
                 this.character.hit(5);
                 this.statusBar.setPercentage(this.character.energy);
-            } else if (this.character.energy == 0) {
-                this.hurts_sound.pause();
             }
         });
     }
@@ -140,7 +147,6 @@ class World {
             this.throwableObjects[i].endbossIsHit = true;
             this.level.endboss[0].hit(20);
             this.statusBarEndboss.setEndbossLive(this.level.endboss[0].energy);
-
         }
     }
 
@@ -242,7 +248,7 @@ class World {
         this.addObjectsToMap(this.level.coins);
         this.addtoMap(this.character);
         this.addObjectsToMap(this.throwableObjects);
-        
+
 
         this.ctx.translate(-this.camera_x, 0);
         this.addtoMap(this.statusBar);
@@ -272,7 +278,7 @@ class World {
         }
 
         move.draw(this.ctx);
-        move.drawFrame(this.ctx);
+        //move.drawFrame(this.ctx);
 
         this.ctx.beginPath();
 
