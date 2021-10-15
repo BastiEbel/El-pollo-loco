@@ -70,6 +70,7 @@ class Character extends MovableObject {
     world;
     walking_sound = new Audio('audio/walking.mp3');
     jump_sound = new Audio('audio/jump.mp3');
+    lose_sound = new Audio('audio/game_over.mp3');
 
 
     constructor() {
@@ -124,15 +125,19 @@ class Character extends MovableObject {
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
                 this.loadImage(this.IMAGES_DEAD[6]);
+                this.lose_sound.play();
+                setTimeout(() => {
+                    this.lose_sound.pause();
+                }, 2000);
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
             } else if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_JUMPING);
-            } else if (this.longIdle()) {
-                this.playAnimation(this.IMAGES_LONGIDLE);
             } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
                 //walk animation
                 this.playAnimation(this.IMAGES_WALKING);
+            } else if (this.longIdle()) {
+                this.playAnimation(this.IMAGES_LONGIDLE);
             } else {
                 this.playAnimation(this.IMAGES_IDLE);
             }

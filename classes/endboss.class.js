@@ -31,6 +31,7 @@ class Endboss extends MovableObject {
     ];
 
     world;
+    win_sound = new Audio('audio/win.mp3');
 
     constructor() {
         super().loadImage('img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/1.Caminata/G1.png');
@@ -50,6 +51,10 @@ class Endboss extends MovableObject {
     playBossAnimation(){
         if(this.isDead()){
             this.playAnimation(this.IMAGES_ISDEAD);
+            this.win_sound.play();
+            setTimeout(() => {
+                this.win_sound.pause();
+            }, 6000);
         } else if(this.isHurt()) {
             this.playAnimation(this.IMAGES_ISHIT);
         } else {

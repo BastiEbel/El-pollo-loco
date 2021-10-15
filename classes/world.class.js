@@ -27,8 +27,8 @@ class World {
     thrown_Audio = new Audio('audio/thrown.mp3');
     chicken_sound = new Audio('audio/chicken.mp3');
     hurts_sound = new Audio('audio/human_hurt.mp3');
-    win_sound = new Audio('audio/win.mp3');
-    lose_sound = new Audio('audio/game_over.mp3');
+    
+    
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -72,12 +72,10 @@ class World {
         let endBossStatus = level1.endboss[0].energy;
 
         if (characterStatus == 0) {
-            this.lose_sound.play();
             setTimeout(() => {
                 this.endScreen.push(new Endscreen('img/9.Intro _ Outro Image/_Game over_ screen/2.oh no you lost!.png'));
             }, 2500);
         } else if (endBossStatus == 0) {
-            this.win_sound.play();
             setTimeout(() => {
                 this.endScreen.push(new Endscreen('img/9.Intro _ Outro Image/_Game over_ screen/3.Game over.png'));
             }, 2500); 
