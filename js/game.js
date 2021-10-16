@@ -2,12 +2,18 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 
+let startmusic = new Audio('audio/music.mp3');
+
 function init() {
     //preloadImages();
     //checkBackgroundImageCache();
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
 
+}
+
+function gameload() {
+    startmusic.play();
 }
 
 function visibleset() {
@@ -18,6 +24,7 @@ function visibleset() {
 }
 
 function startGame() {
+    startmusic.pause();
     visibleset();
     init();
 }
