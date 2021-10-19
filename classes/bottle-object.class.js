@@ -11,7 +11,7 @@ class BottleObjects extends DrawableObject {
     constructor() {
         super().loadImage('img/6.botella/1.Marcador.png');
         this.loadImages(this.BOTTLE_IMAGE);
-        this.x = 200 + Math.random() * 1800;
+        this.x = 200 + Math.random() * 3800;
         this.y = 100 + Math.random() * 150;
     }
 

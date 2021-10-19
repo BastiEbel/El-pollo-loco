@@ -1,4 +1,4 @@
-body{
+body {
     height: 100vh;
     display: flex;
     align-items: center;
@@ -8,7 +8,7 @@ body{
     background-image: url("img/5.Fondo/Capas/5.cielo_1920-1080px.png");
 }
 
-.container-start{
+.container-start {
     position: absolute;
     top: 0px;
     right: 0px;
@@ -22,7 +22,7 @@ body{
     flex-direction: column;
 }
 
-.menu-container{
+.menu-container {
     font-size: small;
     width: 720px;
     height: 40px;
@@ -33,12 +33,12 @@ body{
     border-radius: 5px;
 }
 
-.img-start{
+.img-start {
     width: 720px;
     height: 480px;
 }
 
-.game-explain{
+.game-explain {
     width: 20%;
     height: 40px;
     display: flex;
@@ -48,12 +48,12 @@ body{
     border-left: 1px solid black;
 }
 
-.img-fullscreen{
+.img-fullscreen {
     width: 20px;
     cursor: pointer;
 }
 
-.game-button{
+.game-button {
     font-size: smaller;
     border: 1px solid black;
     background-color: rgba(211, 211, 211, 0.733);
@@ -71,27 +71,61 @@ a {
     color: black;
 }
 
-.game-button:hover{
+.game-button:hover {
     background-color: lightgray;
 }
 
-.d-none{
+.d-none {
     display: none;
 }
 
-canvas{
+canvas {
     background-color: black;
     display: block;
 }
 
-@media only screen and (max-width: 720px){
-    canvas{
+@media only screen and (max-width: 720px) {
+    canvas {
         width: 100%;
+    }
+    .img-start {
+        width: 95%;
+        object-fit: contain;
+    }
+    .game-explain {
+        flex-direction: column;
+        height: 80px;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .game-explain img{
+        margin-top: 5px;
+    }
+
+    .menu-container {
+        width: 95%;
+        height: 80px;
+        z-index: 2;
+    }
+
+    .game-button {
+        margin-bottom: 5px;
+        width: 80%;
+        height: 40px;
     }
 }
 
 @media only screen and (max-height: 480px) {
-    canvas{
+    canvas {
         height: 100vh;
+    }
+    .img-start {
+        height: 100vh;
+    }
+    .menu-container {
+        height: 100vh;
+        z-index: 2;
+        margin-bottom: 44px;
     }
 }

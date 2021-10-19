@@ -14,7 +14,7 @@ class StatusBarEndboss extends MovableObject {
     constructor() {
         super();
         this.loadImages(this.STATUSBAR_IMAGES);
-        this.x = 2600;
+        this.x = 4600;
         this.y = 0;
         this.height = 50;
         this.width = 180;

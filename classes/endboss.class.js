@@ -3,6 +3,7 @@ class Endboss extends MovableObject {
     height = 500;
     width = 300;
     y = -40;
+    speed = 0.4;
 
     IMAGES_WALKING = [
         'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/2.Ateción-ataque/1.Alerta/G5.png',
@@ -26,6 +27,13 @@ class Endboss extends MovableObject {
         'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/2.Ateción-ataque/2.Ataque/G20.png'
     ];
 
+    IMAGES_WALK_HIT = [
+        'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/1.Caminata/G1.png',
+        'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/1.Caminata/G2.png',
+        'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/1.Caminata/G3.png',
+        'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/1.Caminata/G4.png'
+    ];
+
     IMAGES_ISDEAD = [
         'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/4.Muerte/G26.png'
     ];
@@ -38,27 +46,38 @@ class Endboss extends MovableObject {
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_ISHIT);
         this.loadImages(this.IMAGES_ISDEAD);
-        this.x = 2500;
+        this.loadImages(this.IMAGES_WALK_HIT);
+        this.x = 4500;
         this.animate();
     }
 
     animate() {
         setInterval(() => {
+            this.endbossAnimation();
+        }, 1000/15);
+
+        setInterval(() => {
             this.playBossAnimation();
-        }, 500);
+        }, 400); 
     }
 
-    playBossAnimation(){
-        if(this.isDead()){
+    playBossAnimation() {
+        if (this.isDead()) {
             this.playAnimation(this.IMAGES_ISDEAD);
             this.win_sound.play();
             setTimeout(() => {
                 this.win_sound.pause();
             }, 6000);
-        } else if(this.isHurt()) {
-            this.playAnimation(this.IMAGES_ISHIT);
-        } else {
+        } else{
             this.playAnimation(this.IMAGES_WALKING);
+        }
+    }
+
+    endbossAnimation(){
+        if (this.isHurt() && this.energy > 0) {
+            this.playAnimation(this.IMAGES_ISHIT);
+            this.playAnimation(this.IMAGES_WALK_HIT);
+            this.x -= this.speed;
         }
     }
 }

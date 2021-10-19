@@ -2,6 +2,7 @@ class World {
 
     endscreen = new Endscreen();
     character = new Character();
+    chicken = new Chicken();
     level = level1;
     canvas;
     ctx;
@@ -27,8 +28,8 @@ class World {
     thrown_Audio = new Audio('audio/thrown.mp3');
     chicken_sound = new Audio('audio/chicken.mp3');
     hurts_sound = new Audio('audio/human_hurt.mp3');
-    
-    
+
+
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -43,6 +44,7 @@ class World {
 
     setWorld() {
         this.character.world = this;
+        this.chicken.world = this;
     }
 
     run() {
@@ -66,7 +68,7 @@ class World {
     /**
      * Endscreen if the character is dead
      * Endscreen if the Endboss is dead
-     */
+     **/
     loadEndscreen() {
         let characterStatus = this.character.energy;
         let endBossStatus = level1.endboss[0].energy;
@@ -74,18 +76,24 @@ class World {
         if (characterStatus == 0) {
             setTimeout(() => {
                 this.endScreen.push(new Endscreen('img/9.Intro _ Outro Image/_Game over_ screen/2.oh no you lost!.png'));
+                setTimeout(() => {
+                    window.location.href = './index.html';
+                }, 4500);
             }, 2500);
         } else if (endBossStatus == 0) {
             setTimeout(() => {
                 this.endScreen.push(new Endscreen('img/9.Intro _ Outro Image/_Game over_ screen/3.Game over.png'));
-            }, 2500); 
+                setTimeout(() => {
+                    window.location.href = './index.html';
+                }, 4000);
+            }, 2500);
         }
     }
 
     /**
      * character get damage from the chicken
      * 
-     */
+     **/
     checkColision() {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy)) {
@@ -99,7 +107,7 @@ class World {
     /**
      * Check Coilision with Coin if it true collected
      * 
-     */
+     **/
     collectCoinColision() {
         this.level.coins.forEach((coinCollect) => {
             if (this.character.isColliding(coinCollect)) {
@@ -128,7 +136,7 @@ class World {
     /**
      * Endboss got damage from the bottle
      * 
-     */
+     **/
     endbossColision() {
         this.level.endboss.forEach((endboss) => {
             for (let i = 0; i < this.throwableObjects.length; i++) {
@@ -151,7 +159,7 @@ class World {
     /**
      * Chicken get damage and remove after this
      * 
-     */
+     **/
     colisionWithEnemy() {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy)) {
@@ -187,7 +195,7 @@ class World {
     /**
      * Collect bottles with the character
      * 
-     */
+     **/
     collectBottleColision() {
         this.level.bottleObjects.forEach((bottle) => {
             if (this.character.isColliding(bottle)) {
@@ -217,7 +225,7 @@ class World {
     /**
      * bottle it throw about keyboard key D 
      * 
-     */
+     **/
     checkThrowObjects() {
         if (this.character.energy > 0) {
             if (this.countOfBottles > 0) {
@@ -259,7 +267,7 @@ class World {
 
         // draw immer wieder aufrufen
         let self = this;
-        requestAnimationFrame(function () {
+        requestAnimationFrame(function() {
             self.draw();
         });
     }
