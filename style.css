@@ -118,14 +118,29 @@ canvas {
 
 @media only screen and (max-height: 480px) {
     canvas {
-        height: 100vh;
+        height: 84vh;
+        object-fit: contain;
     }
     .img-start {
-        height: 100vh;
+        height: 84vh;
+    }
+
+    .game-explain{
+        height: 25px;
+    }
+
+    .game-explain img{
+        height: 15px;
     }
     .menu-container {
-        height: 100vh;
+        height: 40px;
         z-index: 2;
-        margin-bottom: 44px;
+    }
+    .game-button {
+        height: 25px;
+    }
+
+    .img-fullscreen{
+        display: none;
     }
 }
